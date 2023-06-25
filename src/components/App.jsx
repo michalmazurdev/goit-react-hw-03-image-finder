@@ -3,16 +3,17 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import css from './App.module.css';
+import { Modal } from './Modal/Modal';
 import { Component } from 'react';
-import { nanoid } from 'nanoid';
 import { getPictures } from './services/api.js';
+import css from './App.module.css';
 
 class App extends Component {
   state = {
     pictures: [],
     searchedPhrase: '',
     isLoading: false,
+    isModalOpen: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -52,6 +53,16 @@ class App extends Component {
     this.setState({ page: this.state.page + 1 });
   };
 
+  openModal = event => {
+    const clickedPicture = this.state.pictures.find(
+      picture => picture.webformatURL === event.target.src
+    );
+    this.setState({
+      isModalOpen: true,
+      pathForModal: clickedPicture.largeImageURL,
+    });
+  };
+
   render() {
     console.log(this.state);
     return (
@@ -59,11 +70,16 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearch} />
         <ImageGallery>
           {this.state.pictures.map(picture => (
-            <ImageGalleryItem key={nanoid()} url={picture.webformatURL} />
+            <ImageGalleryItem
+              key={picture.id}
+              url={picture.webformatURL}
+              clicked={this.openModal}
+            />
           ))}
         </ImageGallery>
         {this.state.pictures.length !== 0 && <Button clicked={this.loadMore} />}
         {this.state.isLoading && <Loader />}
+        {this.state.isModalOpen && <Modal src={this.state.pathForModal} />}
       </div>
     );
   }
