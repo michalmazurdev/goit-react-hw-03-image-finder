@@ -10,7 +10,7 @@ export const Searchbar = ({ onSubmit }) => (
       <input
         className={css.input}
         type="text"
-        autocomplete="off"
+        autoComplete="off"
         autoFocus
         placeholder="Search images and photos"
       />

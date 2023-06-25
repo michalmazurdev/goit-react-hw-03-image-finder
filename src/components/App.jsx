@@ -1,6 +1,7 @@
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { Button } from './Button/Button';
 import css from './App.module.css';
 import { Component } from 'react';
 import axios from 'axios';
@@ -29,16 +30,25 @@ class App extends Component {
     pictures: [],
     page: 1,
     searchedPhrase: '',
+    isLoading: false,
   };
+
   async componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchedPhrase !== this.state.searchedPhrase) {
+    if (
+      prevState.searchedPhrase !== this.state.searchedPhrase ||
+      prevState.page !== this.state.page
+    ) {
       try {
         this.setState({ isLoading: true });
+
         const pictures = await getPictures(
           this.state.searchedPhrase,
           this.state.page
         );
-        this.setState({ pictures });
+
+        this.setState(prevState => ({
+          pictures: [...prevState.pictures, ...pictures],
+        }));
       } catch (error) {
         this.setState({ error });
       } finally {
@@ -49,10 +59,16 @@ class App extends Component {
 
   handleSearch = event => {
     event.preventDefault();
-    this.setState({ searchedPhrase: event.target[1].value });
+    this.setState({ pictures: [], searchedPhrase: event.target[1].value });
   };
+
+  loadMore = event => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
   render() {
     console.log(this.state);
+    console.log(typeof this.loadMore);
     return (
       <div className={css.app}>
         <Searchbar onSubmit={this.handleSearch} />
@@ -61,8 +77,10 @@ class App extends Component {
             <ImageGalleryItem url={picture.previewURL} />
           ))}
         </ImageGallery>
+        {this.state.pictures.length !== 0 && <Button clicked={this.loadMore} />}
       </div>
     );
   }
 }
+
 export default App;
