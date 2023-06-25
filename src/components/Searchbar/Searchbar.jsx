@@ -17,6 +17,7 @@ export const Searchbar = ({ onSubmit }) => (
     </form>
   </header>
 );
+
 Searchbar.propTypes = {
   onSubmit: PropTypes.func,
 };
