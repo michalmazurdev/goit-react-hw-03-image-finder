@@ -4,7 +4,7 @@ export const Searchbar = () => (
   <header className={css.searchbar}>
     <form className={css.SearchForm}>
       <button type="submit" className={css.button}>
-        <span className="button-label">Search</span>
+        <span className={css.buttonLabel}></span>
       </button>
 
       <input
