@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const Searchbar = ({ onSubmit }) => (
   <header className={css.searchbar}>
-    <form className={css.SearchForm} onSubmit={onSubmit}>
+    <form className={css.searchForm} onSubmit={onSubmit}>
       <button type="submit" className={css.button}>
         <span className={css.buttonLabel}></span>
       </button>

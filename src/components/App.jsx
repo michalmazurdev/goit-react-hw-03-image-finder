@@ -6,6 +6,7 @@ import { Loader } from './Loader/Loader';
 import css from './App.module.css';
 import { Component } from 'react';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 
 async function getPictures(searchedPhrase, page) {
   try {
@@ -29,7 +30,7 @@ async function getPictures(searchedPhrase, page) {
 class App extends Component {
   state = {
     pictures: [],
-    page: 1,
+    // page: 1,
     searchedPhrase: '',
     isLoading: false,
   };
@@ -60,7 +61,11 @@ class App extends Component {
 
   handleSearch = event => {
     event.preventDefault();
-    this.setState({ pictures: [], searchedPhrase: event.target[1].value });
+    this.setState({
+      pictures: [],
+      page: 1,
+      searchedPhrase: event.target[1].value,
+    });
   };
 
   loadMore = event => {
@@ -69,18 +74,16 @@ class App extends Component {
 
   render() {
     console.log(this.state);
-    console.log(typeof this.loadMore);
     return (
       <div className={css.app}>
         <Searchbar onSubmit={this.handleSearch} />
         <ImageGallery>
           {this.state.pictures.map(picture => (
-            <ImageGalleryItem url={picture.previewURL} />
+            <ImageGalleryItem key={nanoid()} url={picture.previewURL} />
           ))}
         </ImageGallery>
         {this.state.pictures.length !== 0 && <Button clicked={this.loadMore} />}
         {this.state.isLoading && <Loader />}
-        {/* <Loader /> */}
       </div>
     );
   }
