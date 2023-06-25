@@ -2,6 +2,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
 import css from './App.module.css';
 import { Component } from 'react';
 import axios from 'axios';
@@ -78,6 +79,8 @@ class App extends Component {
           ))}
         </ImageGallery>
         {this.state.pictures.length !== 0 && <Button clicked={this.loadMore} />}
+        {this.state.isLoading && <Loader />}
+        {/* <Loader /> */}
       </div>
     );
   }
