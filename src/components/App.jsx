@@ -5,32 +5,12 @@ import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
 import css from './App.module.css';
 import { Component } from 'react';
-import axios from 'axios';
 import { nanoid } from 'nanoid';
-
-async function getPictures(searchedPhrase, page) {
-  try {
-    const response = await axios.get('https://pixabay.com/api/', {
-      params: {
-        key: '36302590-ce388341fd0bce6375bf0ebc2',
-        q: encodeURIComponent(searchedPhrase.trim()),
-        image_type: 'photo',
-        safesearch: true,
-        orientation: 'horizontal',
-        per_page: 12,
-        page: page,
-      },
-    });
-    return response.data.hits;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { getPictures } from './services/api.js';
 
 class App extends Component {
   state = {
     pictures: [],
-    // page: 1,
     searchedPhrase: '',
     isLoading: false,
   };
@@ -79,7 +59,7 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearch} />
         <ImageGallery>
           {this.state.pictures.map(picture => (
-            <ImageGalleryItem key={nanoid()} url={picture.previewURL} />
+            <ImageGalleryItem key={nanoid()} url={picture.webformatURL} />
           ))}
         </ImageGallery>
         {this.state.pictures.length !== 0 && <Button clicked={this.loadMore} />}
