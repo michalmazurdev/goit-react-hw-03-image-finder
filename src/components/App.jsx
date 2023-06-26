@@ -64,20 +64,19 @@ class App extends Component {
   };
 
   closeModalByClick = event => {
-    console.log(event);
+    // console.log(event);
     if (event.target.nodeName === 'DIV') {
       this.setState({ isModalOpen: false });
     }
   };
 
   closeModalByESC = event => {
-    console.log(event);
+    // console.log(event);
     if (event.key === 'Escape') {
       this.setState({ isModalOpen: false });
     }
   };
   render() {
-    // console.log(this.state);
     return (
       <div className={css.app}>
         <Searchbar onSubmit={this.handleSearch} />
