@@ -1,4 +1,5 @@
 import css from './Modal.module.css';
+import PropTypes from 'prop-types';
 
 export const Modal = ({ src, closeFunctionByClick, closeFunctionByESC }) => {
   return (
@@ -13,4 +14,9 @@ export const Modal = ({ src, closeFunctionByClick, closeFunctionByESC }) => {
       </div>
     </div>
   );
+};
+Modal.propTypes = {
+  src: PropTypes.string,
+  closeFunctionByClick: PropTypes.func,
+  closeFunctionByESC: PropTypes.func,
 };
