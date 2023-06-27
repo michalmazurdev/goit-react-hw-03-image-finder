@@ -63,20 +63,6 @@ class App extends Component {
     });
   };
 
-  // closeModalByClick = event => {
-  //   // console.log(event);
-  //   if (event.target.nodeName === 'DIV') {
-  //     this.setState({ isModalOpen: false });
-  //   }
-  // };
-
-  // closeModalByESC = event => {
-  //   // console.log(event);
-  //   if (event.key === 'Escape') {
-  //     this.setState({ isModalOpen: false });
-  //   }
-  // };
-
   toggleModal = () => {
     this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   };
@@ -99,12 +85,7 @@ class App extends Component {
         {this.state.isLoading && <Loader />}
 
         {this.state.isModalOpen && (
-          <Modal
-            src={this.state.pathForModal}
-            onClose={this.toggleModal}
-            // closeFunctionByClick={this.closeModalByClick}
-            // closeFunctionByESC={this.closeModalByESC}
-          />
+          <Modal src={this.state.pathForModal} onClose={this.toggleModal} />
         )}
       </div>
     );
