@@ -11,14 +11,14 @@ export class Modal extends Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
+  handleKeyDown = event => {
+    if (event.code === 'Escape') {
       this.props.onClose();
     }
   };
 
-  handleOverlayClick = e => {
-    if (e.target === e.currentTarget) {
+  handleOverlayClick = event => {
+    if (event.target === event.currentTarget) {
       this.props.onClose();
     }
   };
