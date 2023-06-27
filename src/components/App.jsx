@@ -49,7 +49,7 @@ class App extends Component {
     });
   };
 
-  loadMore = event => {
+  loadMore = () => {
     this.setState({ page: this.state.page + 1 });
   };
 
@@ -63,8 +63,8 @@ class App extends Component {
     });
   };
 
-  toggleModal = () => {
-    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
   };
   render() {
     return (
@@ -85,7 +85,7 @@ class App extends Component {
         {this.state.isLoading && <Loader />}
 
         {this.state.isModalOpen && (
-          <Modal src={this.state.pathForModal} onClose={this.toggleModal} />
+          <Modal src={this.state.pathForModal} onClose={this.closeModal} />
         )}
       </div>
     );
